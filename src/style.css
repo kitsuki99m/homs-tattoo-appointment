@@ -344,16 +344,6 @@
   transform: translateY(0);
 }
 
-.typing-text {
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid currentColor;
-  width: 0;
-  animation:
-    typing 1.5s steps(20) forwards,
-    blink 0.7s step-end 5,
-    removeCursor 2s 2s forwards;
-}
 
 @keyframes typing {
   from {
@@ -405,6 +395,17 @@
   writing-mode: sideways-rl;
 }
 
+.typing-text {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid currentColor;
+  width: 0;
+  animation:
+    typing 1.5s steps(20) forwards,
+    blink 0.7s step-end 5,
+    removeCursor 2s 2s forwards;
+}
+
 @media (min-width: 800px) {
   .jodex-label {
     writing-mode: horizontal-tb;
@@ -454,6 +455,8 @@
   .jodex-label span:nth-of-type(2) {
     font-size: 320px;
   }
+
+  
 }
 
 @media (min-width: 1024px) and (min-height: 768px) {
