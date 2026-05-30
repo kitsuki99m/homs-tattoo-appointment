@@ -274,22 +274,22 @@
   transition: none;
 }
 
-.light {
-  --color-bg-primary: #f5f1eb;
-  --color-bg-secondary: #ede9e1;
-  --color-bg-tertiary: #e0dbd0;
-  --color-bg-elevated: #f0ece4;
-  --color-hover: #d4cfc6;
-  --color-active: #c4bfb6;
-  --color-text-primary: #1a1a1a;
-  --color-text-muted: #4a4540;
-  --color-text-faint: #7a7570;
-  --color-nav: #1a1a1a;
-  --color-nav-muted: #4a4540;
-  --color-nav-active: #efbb44;
-  --color-nav-active-text: #121212;
-  --color-nav-hover: #c9a84c;
-  --color-nav-hover-text: #121212;
+.light-mode {
+  --color-bg-primary: #f5f5f5 !important;
+  --color-bg-secondary: #ededed !important;
+  --color-bg-tertiary: #e0e0e0 !important;
+  --color-bg-elevated: #ffffff !important;
+  --color-hover: #d4cfc6 !important;
+  --color-active: #c4bfb6 !important;
+  --color-text-primary: #1a1a1a !important;
+  --color-text-muted: #4a4540 !important;
+  --color-text-faint: #7a7570 !important;
+  --color-nav: #1a1a1a !important;
+  --color-nav-muted: #4a4540 !important;
+  --color-nav-active: #efbb44 !important;
+  --color-nav-active-text: #121212 !important;
+  --color-nav-hover: #c9a84c !important;
+  --color-nav-hover-text: #121212 !important;
 }
 
 .slide-left {

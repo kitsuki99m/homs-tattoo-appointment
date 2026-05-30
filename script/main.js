@@ -322,3 +322,5 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("submit-btn").addEventListener("click", () => {
   booking.submitAppointment();
 });
+
+
