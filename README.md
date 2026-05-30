@@ -56,5 +56,3 @@ I'm still early in my web development journey. Throughout this project I used **
 
 *Built with curiosity, patience, and a lot of console.log() 😄*
 =======
-# homs-tattoo-appointment
->>>>>>> 9b24f4b338b832be37910288cefb0d1053b66cb4
