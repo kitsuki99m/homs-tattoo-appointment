@@ -18,7 +18,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'main.html'),
-        gallery: resolve(__dirname, 'gallery.html'),
       }
     }
   }

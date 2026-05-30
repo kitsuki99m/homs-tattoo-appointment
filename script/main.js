@@ -1,9 +1,7 @@
 // Copyright (c) 2026 Kyle Serina. All Rights Reserved.
 // Proprietary and confidential. Unauthorized use prohibited.
 
-import { infoCards } from "./animation-cards.js";
-import { bookingJodex } from "./booking.js";
-import { util } from "../util/utility.js";
+import { util } from "./util/utility.js";
 import { initAnimation } from "./animations.js"; 
 
 const months = [
