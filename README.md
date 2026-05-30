@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🖊️ HomS Tattoo Website
 
 Personal website for **HomS Tattoo** — a tattoo studio based in Digos City, Davao del Sur, Philippines. This is a portfolio and booking site for tattoo artist **Jodex Wang**.
