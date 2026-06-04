@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Kyle Serina. All Rights Reserved.
 // Proprietary and confidential. Unauthorized use prohibited.
 
-import { openMenu } from "./jodex.js"
+
 
 // Constants
 const squareGallery = document.getElementById("square-gallery");

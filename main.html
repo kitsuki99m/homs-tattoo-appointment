@@ -43,7 +43,7 @@
     />
   </head>
   <body class="font-satoshi">
-    <div id="web-container" class="relative min-h-screen w-full overflow-x-hidden">
+    <div id="web-container" class="relative min-h-screen w-full -z-51" style="background: radial-gradient(125% 125% at 50% 10%, #fff 55%, #475569 100%);">
       <div
         class="fixed inset-0 -z-50"
         style="
@@ -60,10 +60,13 @@
         class="sticky top-0 z-50 w-full h-20 flex items-center justify-center bg-white/20 backdrop-blur-md border-b border-text-primary/10 shadow-md"
       >
         <header class="w-[85%] h-full flex items-center justify-between">
-          <div id="logo" class="text-text-primary font-aktura text-3xl pointer-events-none">
+          <div
+            id="logo"
+            class="text-text-primary font-aktura text-3xl pointer-events-none"
+          >
             <h1>homs tattoo</h1>
           </div>
-          
+
           <nav id="nav-desk" class="desk-nav-ul hidden md:block">
             <ul
               class="flex flex-row font-source font-semibold items-center gap-4 md:gap-6"
@@ -82,7 +85,7 @@
               <li
                 class="px-3 py-2 rounded-sm text-text-primary hover:opacity-80 transition-colors"
               >
-                <a href="/homs-tattoo/gallery.html">Gallery</a>
+                <a href="./gallery.html">Gallery</a>
               </li>
               <li
                 class="px-3 py-2 rounded-sm text-text-primary hover:opacity-80 transition-colors"
@@ -141,7 +144,7 @@
               <div class="h-40 border-l border-text-primary/40"></div>
 
               <div
-                class="flex-1 text-base md:text-lg font-satoshi font-light text-text-primary/90 text-left leading-relaxed"
+                class="slide-right flex-1 text-base md:text-lg font-satoshi font-light text-text-primary/90 text-left leading-relaxed"
               >
                 <p>
                   Where every line is a decision. Every stroke, a statement. Art
@@ -164,27 +167,32 @@
                   target="_blank"
                   >INSTAGRAM</a
                 >
-                / <a
+                /
+                <a
                   href="https://www.facebook.com/jodex.abellona/"
                   class="cursor-pointer hover:text-gold active:text-gold-active"
                   target="_blank"
                   >FACEBOOK</a
-                > / <a
+                >
+                /
+                <a
                   href="https://www.tiktok.com/@mrjodexwang/"
                   class="cursor-pointer hover:text-gold active:text-gold-active"
                   target="_blank"
                   >TIKTOK</a
-                > —
+                >
+                —
               </span>
             </div>
             <div
               class="flex flex-col md:flex-row gap-3 md:gap-6 items-center justify-center"
             >
               <a
-                href="#booking" class="h-10 w-44 md:max-w-60 px-2 text-bg-primary bg-text-primary hover:bg-text-muted active:bg-text-faint cursor-pointer text-center flex items-center"
+                href="#booking"
+                class="h-10 w-44 md:max-w-60 px-2 text-bg-primary bg-text-primary hover:bg-text-muted active:bg-text-faint cursor-pointer text-center flex items-center"
               >
                 <span class="mx-auto">Schedule Now</span>
-          </a>
+              </a>
 
               <a
                 href="gallery"
@@ -220,7 +228,7 @@
                 >
                   <!-- DELETE FLEX COL, only for MD-->
                   <h2
-                    class="slide-right font-medium font-satoshi text-xl md:text-6xl uppercase"
+                    class="slide-right text-center font-medium font-satoshi text-xl md:text-6xl uppercase"
                   >
                     Jodex Abellona
                   </h2>
@@ -248,7 +256,7 @@
                 class="h-full md:col-span-8 p-5 md:border-l border-text-faint"
               >
                 <div
-                  class="w-full h-full text-center flex flex-col gap-5 justify-between"
+                  class="w-full h-full text-center flex flex-col gap-5 justify-between md:p-12"
                 >
                   <p
                     class="slide-left font-satoshi-italic text-lg md:text-[2rem]! md:text-left"
@@ -264,7 +272,9 @@
                     intentional, and made to last a lifetime.
                   </p>
                   <div class="flex flex-col gap-3">
-                    <h3 class="jodex-card font-semibold font-satoshi-italic text-md">
+                    <h3
+                      class="jodex-card font-semibold font-satoshi-italic text-md"
+                    >
                       know my hobbies
                     </h3>
                     <div
@@ -348,12 +358,9 @@
         </section>
         <section
           id="pricing"
-          class="w-full min-h-screen max-h-max flex items-center p-3"
+          class="w-full min-h-screen max-h-max flex items-center p-3 overflow-x-hidden"
         >
-          <div
-            id="pricing-container"
-            class="w-full md:w-[80%] mx-auto p-4"
-          >
+          <div id="pricing-container" class="w-full md:w-[80%] mx-auto p-4">
             <div id="know-me" class="w-full">
               <h2
                 class="slide-right font-aktura text-text-primary text-5xl md:text-7xl text-center leading-none"
@@ -362,23 +369,33 @@
               </h2>
             </div>
             <div
-              class="grid md:grid-cols-8 container mx-auto p-5 w-full h-max border-t md:border-y border-text-faint gap-10 md:gap-5"
+              class="slide-left text-sm md:text-md text-center w-[80%] md:w-full mx-auto mb-3"
+            >
+              <p>
+                <span class="font-bold">Note:</span> Prices are negotiable and
+                may vary depending on size and placement. Thank you!
+              </p>
+            </div>
+            <div
+              class="grid md:grid-cols-8 container mx-auto p-5 w-full h-full border-t md:border-y border-text-faint gap-10 md:gap-5"
             >
               <div
                 id="minimal"
                 class="pricing-card w-full h-full flex flex-col items-center justify-center md:col-span-2"
               >
-                <div class="bg-white/5 w-full flex-1 shadow-lg">
+                <div class="bg-white/5 w-full h-100 shadow-lg">
                   <h3
                     class="text-2xl md:text-xl uppercase font-light text-center mt-10 md:mt-5 leading-none"
                   >
                     Minimal
                   </h3>
-                  <img
-                    class="w-15 h-full object-contain mx-auto -translate-y-10"
-                    src="./src/assets/minimal.webp"
-                    alt="Example of a minimal tattoo design"
-                  />
+                  <div class="h-85 overflow-hidden p-4">
+                    <img
+                      class="w-40 object-contain max-h-52 mx-auto mt-5"
+                      src="./src/assets/minimal.webp"
+                      alt="Example of a minimal tattoo design"
+                    />
+                  </div>
                 </div>
                 <div
                   class="bg-text-muted w-full h-max shadow-lg p-5 text-bg-elevated"
@@ -386,25 +403,27 @@
                   <p class="mb-3">
                     Small and simple designs, perfect for first-timers.
                   </p>
-                  <p class="text-xl font-black">₱ 800+</p>
+                  <p class="text-sm lg:text-xl font-black">₱ 1,000 - 1,500</p>
                 </div>
               </div>
 
               <div
                 id="normal"
-                class="pricing-card w-full md:w-[20rem] h-full flex flex-col items-center justify-center md:col-span-2"
+                class="pricing-card w-full h-full flex flex-col items-center justify-center md:col-span-2"
               >
-                <div class="bg-white/5 w-full flex-1  shadow-lg">
+                <div class="bg-white/15 w-full h-100 shadow-lg">
                   <h3
                     class="text-2xl md:text-xl uppercase font-light text-center mt-10 md:mt-5 leading-none"
                   >
                     Normal
                   </h3>
-                  <img
-                    class="w-45 md:w-50 h-full object-contain mx-auto -translate-y-10"
-                    src="./src/assets/medium-final.webp"
-                    alt="Example of a minimal tattoo design"
-                  />
+                  <div class="h-85 overflow-hidden p-4">
+                    <img
+                      class="w-40 object-contain max-h-52 mx-auto mt-5"
+                      src="./src/assets/medium-final.webp"
+                      alt="Example of a minimal tattoo design"
+                    />
+                  </div>
                 </div>
                 <div
                   class="bg-text-muted w-full h-max shadow-lg p-5 text-bg-elevated"
@@ -413,25 +432,27 @@
                     Balanced designs featuring clean linework and selective
                     shading.
                   </p>
-                  <p class="text-xl font-black">₱ 2500+</p>
+                  <p class="text-sm lg:text-xl font-black">₱ 2,000 - 3,000</p>
                 </div>
               </div>
 
               <div
                 id="medium"
-                class="pricing-card w-full md:w-[20rem] h-full flex flex-col items-center justify-center md:col-span-2"
+                class="pricing-card w-full h-full flex flex-col items-center justify-center md:col-span-2"
               >
-                <div class="bg-white/5 w-full flex-1  shadow-lg">
+                <div class="bg-white/15 w-full h-100 shadow-lg">
                   <h3
                     class="text-2xl md:text-xl uppercase font-light text-center mt-10 md:mt-5 leading-none"
                   >
                     Medium
                   </h3>
-                  <img
-                    class="w-45 md:w-50 h-full object-contain mx-auto -translate-y-10"
-                    src="./src/assets/medium-final1.webp"
-                    alt="Example of a minimal tattoo design"
-                  />
+                  <div class="h-85 overflow-hidden p-4">
+                    <img
+                      class="w-40 object-contain max-h-52 mx-auto mt-5"
+                      src="./src/assets/medium-final1.webp"
+                      alt="Example of a minimal tattoo design"
+                    />
+                  </div>
                 </div>
                 <div
                   class="bg-text-muted w-full h-max shadow-lg p-5 text-bg-elevated"
@@ -439,24 +460,26 @@
                   <p class="mb-3">
                     Detailed designs with moderate coverage and complexity.
                   </p>
-                  <p class="text-xl font-black">₱ 3500+</p>
+                  <p class="text-sm lg:text-xl font-black">₱ 3,000 - 5,000</p>
                 </div>
               </div>
               <div
                 id="large"
-                class="pricing-card w-full md:w-[20rem] h-full flex flex-col items-center justify-center md:col-span-2"
+                class="pricing-card w-full h-full flex flex-col items-center justify-center md:col-span-2"
               >
-                <div class="bg-white/5 w-full flex-1  shadow-lg">
+                <div class="bg-white/15 w-full h-100 shadow-lg">
                   <h3
                     class="text-2xl md:text-xl uppercase font-light text-center mt-10 md:mt-5 leading-none"
                   >
                     Large
                   </h3>
-                  <img
-                    class="relative w-45 md:w-50 h-full object-contain mx-auto translate-y-5 -z-1"
-                    src="./src/assets/large-final.webp"
-                    alt="Example of a minimal tattoo design"
-                  />
+                  <div class="h-85 overflow-hidden p-4">
+                    <img
+                      class="w-full object-contain h-full mx-auto mt-5"
+                      src="./src/assets/large-final.webp"
+                      alt="Example of a minimal tattoo design"
+                    />
+                  </div>
                 </div>
                 <div
                   class="bg-text-muted w-full h-max shadow-lg p-5 text-bg-elevated"
@@ -464,7 +487,7 @@
                   <p class="mb-3">
                     Bold and intricate pieces covering larger body areas.
                   </p>
-                  <p class="text-xl font-black">₱ 5000+</p>
+                  <p class="text-sm lg:text-xl font-black">₱ 5,000 - 10,000</p>
                 </div>
               </div>
             </div>
@@ -750,14 +773,7 @@
                         aria-required="true"
                         class="border border-default w-full px-3 py-2 text-sm bg-transparent focus:outline-none focus:ring-1"
                       >
-                        <option value="">Select a time slot</option>
-                        <option>9:00 AM</option>
-                        <option>10:00 AM</option>
-                        <option>11:00 AM</option>
-                        <option>1:00 PM</option>
-                        <option>2:00 PM</option>
-                        <option>3:00 PM</option>
-                        <option>4:00 PM</option>
+                        <option value="">Select a date first</option>
                       </select>
                       <button
                         id="submit-btn"
@@ -782,7 +798,7 @@
         </section>
       </main>
       <footer
-        class="h-full md:h-120 w-full p-6 md:p-10 bg-text-muted mx-auto rounded-t-2xl text-bg-secondary"
+        class="h-full md:h-120 w-full p-6 md:p-10 bg-text-muted mx-auto rounded-t-4xl text-bg-secondary"
         role="contentinfo"
       >
         <div class="mx-auto w-full max-w-7xl p-4 py-6 lg:py-8">

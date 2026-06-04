@@ -55,7 +55,7 @@ function infoCards() {
   );
 
   pricingCards.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 0.15}s`;
+    card.style.transitionDelay = `${index * 0.25}s`;
     observer.observe(card);
   });
 

@@ -2,8 +2,9 @@
 // Proprietary and confidential. Unauthorized use prohibited.
 
 import { util } from "./util/utility.js";
-import { initAnimation } from "./animations.js"; 
+import { initAnimation } from "./animations.js";
 import dayjs from "dayjs";
+import { gallery } from "./mainGallery.js";
 
 const months = [
   "January",
@@ -30,8 +31,11 @@ const selLabel = document.getElementById("selected-date-label");
 
 class Booking {
   constructor() {
-    this.apiBooking = "http://localhost:3000/api/booking"; // ✓ booking
+    this.apiBooking = "http://localhost:3000/api/booking";
     this.apiSchedules = "http://localhost:3000/api/schedule";
+    this.apiBooked = "http://localhost:3000/api/booking/slots";
+    this._schedules = null; // ← cache
+    this._bookedSlots = null; // ← cache
   }
 
   async renderCalendar() {
@@ -41,8 +45,35 @@ class Booking {
     const firstDay = new Date(viewYear, viewMonth, 1).getDay();
     const totalDays = new Date(viewYear, viewMonth + 1, 0).getDate();
     const today = new Date();
+    const now = dayjs();
 
-    // Empty cells before first day
+    // only fetch if not cached
+    if (!this._schedules || !this._bookedSlots) {
+      const [scheduleRes, bookedRes] = await Promise.all([
+        fetch(this.apiSchedules),
+        fetch(this.apiBooked),
+      ]);
+      this._schedules = await scheduleRes.json();
+      this._bookedSlots = await bookedRes.json();
+    }
+
+    const schedules = this._schedules;
+    const bookedSlots = this._bookedSlots;
+
+    const getAvailable = (dateStr) => {
+      const match = schedules.find((s) => s.date === dateStr);
+      if (!match) return null;
+
+      const bookedDate = bookedSlots
+        .filter((a) => a.date === dateStr)
+        .map((a) => a.time); // ← fixed: was a.times
+
+      return match.times.filter((t) => {
+        const timeOnDate = dayjs(`${dateStr} ${t}`, "MMMM D, YYYY h:mm A");
+        return !timeOnDate.isBefore(now) && !bookedDate.includes(t);
+      });
+    };
+
     for (let i = 0; i < firstDay; i++) {
       const empty = document.createElement("div");
       grid.appendChild(empty);
@@ -51,51 +82,113 @@ class Booking {
     for (let d = 1; d <= totalDays; d++) {
       const el = document.createElement("div");
       const thisDate = new Date(viewYear, viewMonth, d);
-      const isPast =
-        thisDate <
-        new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const isSunday = thisDate.getDay() === 0;
+      const todayMidnight = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+      );
+      const isPast = thisDate < todayMidnight;
       const isToday = thisDate.toDateString() === today.toDateString();
       const isSelected =
         selectedDate && thisDate.toDateString() === selectedDate.toDateString();
+      const dateStr = `${months[viewMonth]} ${d}, ${viewYear}`;
+
+      const availableTimes = getAvailable(dateStr);
+      const isInSchedule = availableTimes !== null;
+      const isFullyBooked = isInSchedule && availableTimes.length === 0;
+      const isAvailable = isInSchedule && availableTimes.length > 0;
 
       el.textContent = d;
-      el.classList.add(
-        "text-center",
-        "text-sm",
-        "py-1",
-        "rounded-base",
-        "cursor-pointer",
-      );
+      el.classList.add("text-center", "text-sm", "py-1", "rounded-base", "calendar-cell");
 
-      if (isPast) {
+      if (isPast || !isInSchedule) {
         el.classList.add(
           "text-text-primary",
           "opacity-40",
           "cursor-not-allowed",
         );
+      } else if (isFullyBooked) {
+        el.classList.add(
+          "bg-success",
+          "text-white",
+          "cursor-not-allowed",
+          "opacity-80",
+        );
+        el.title = "Fully booked";
+      } else if (isSelected) {
+        el.classList.add("bg-text-primary", "text-white", "cursor-pointer");
+      } else if (isToday && isAvailable) {
+        el.classList.add(
+          "text-blue-500",
+          "font-medium",
+          "hover:bg-text-primary",
+          "cursor-pointer",
+        );
       } else {
-        if (isSelected) {
-          el.classList.add("bg-text-primary", "text-white");
-        } else if (isToday) {
-          el.classList.add(
-            "text-blue-500",
-            "font-medium",
-            "hover:bg-text-primary",
-          );
-        } else {
-          el.classList.add("text-text-primary", "hover:bg-bg-elevated");
-        }
+        el.classList.add(
+          "text-text-primary",
+          "hover:bg-bg-elevated",
+          "cursor-pointer",
+        );
+      }
 
-        el.addEventListener("click", () => {
-          selectedDate = thisDate;
-          selLabel.innerHTML = `Selected: <span class="text-text-primary font-medium">${months[viewMonth]} ${d}, ${viewYear}</span>`;
-          this.renderCalendar();
-        });
+      if (isAvailable && !isPast) {
+          el.addEventListener("click", async () => {
+    selectedDate = thisDate;
+    selLabel.innerHTML = `Selected: <span class="text-text-primary font-medium">${dateStr}</span>`;
+
+    // remove selected state from previously selected cell
+    const prevSelected = document.querySelector(".calendar-cell.selected");
+    if (prevSelected) {
+      prevSelected.classList.remove("selected", "bg-text-primary", "text-white");
+      prevSelected.classList.add("text-text-primary", "hover:bg-bg-elevated");
+    }
+
+    // add selected state to clicked cell
+    el.classList.add("selected", "bg-text-primary", "text-white");
+    el.classList.remove("text-text-primary", "hover:bg-bg-elevated");
+
+    await this.populateTimeSelect(dateStr, schedules, bookedSlots);
+  });
       }
 
       grid.appendChild(el);
     }
+  }
+
+  async populateTimeSelect(dateStr, schedules, bookedSlots) {
+    const timeSelect = document.querySelector("#time");
+    if (!timeSelect) return;
+
+    timeSelect.innerHTML = `<option value="">Select a time</option>`;
+
+    const match = schedules.find((s) => s.date === dateStr);
+    if (!match) {
+      timeSelect.innerHTML = `<option value="">No available time</option>`;
+      return;
+    }
+
+    const now = dayjs();
+    const bookedTimes = bookedSlots
+      .filter((a) => a.date === dateStr)
+      .map((a) => a.time);
+
+    const availableTimes = match.times.filter((t) => {
+      const timeOnDate = dayjs(`${dateStr} ${t}`, "MMMM D, YYYY h:mm A");
+      return !timeOnDate.isBefore(now) && !bookedTimes.includes(t);
+    });
+
+    if (availableTimes.length === 0) {
+      timeSelect.innerHTML = `<option value="">No available times for this date</option>`;
+      return;
+    }
+
+    availableTimes.forEach((t) => {
+      const option = document.createElement("option");
+      option.value = t;
+      option.textContent = t;
+      timeSelect.appendChild(option);
+    });
   }
 
   async submitAppointment() {
@@ -122,6 +215,7 @@ class Booking {
     // Validation
     if (!util.nameValidation(fname, lname, err)) return;
     if (!util.phoneValidation(phone, err)) return;
+    if (!util.sizeValidation(size, err)) return;
     if (!selectedDate) {
       err.textContent = "Please select a date.";
       err.classList.remove("hidden");
@@ -141,13 +235,15 @@ class Booking {
           description: fDesc || "No description",
           date: dateStr,
           time,
-          createdAt: dayjs().format('MMMM D, YYYY hh:mm A')
+          createdAt: dayjs().format("MMMM D, YYYY hh:mm A"),
         }),
       });
 
       const data = await res.json();
 
       if (data.success) {
+        this._bookedSlots = null;
+        await this.renderCalendar();
         const sizeEl = document.getElementById("size");
         const sizeText = sizeEl.options[sizeEl.selectedIndex].text
           .split("—")[0]
@@ -305,9 +401,14 @@ class Booking {
   }
 
   initBooking() {
-  booking.renderCalendar();
-  booking.validationEventListeners();
+   if (!document.getElementById("cal-days")) {
+    console.log("Not on the booking page. Skipping calendar initialization.");
+    return; 
+  }
+  this.renderCalendar();
+  this.validationEventListeners();
   initAnimation();
+
   }
 }
 
@@ -315,12 +416,38 @@ const booking = new Booking();
 
 // EVENT LISTENERS
 
-document.addEventListener("DOMContentLoaded", () => {
- booking.initBooking();
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1. Initialize the gallery immediately
+  try {
+    if (gallery && typeof gallery.initGallery === 'function') {
+      gallery.initGallery();
+    }
+  } catch (err) {
+    console.error("Gallery failed to initialize:", err);
+  }
+
+  // 2. Initialize the booking system
+  try {
+    booking.initBooking();
+  } catch (err) {
+    console.error("Booking failed to initialize:", err);
+  }
+
+  // 3. Bind the submit button listener safely inside the DOM load block
+  const submitBtn = document.getElementById("submit-btn");
+  if (submitBtn) {
+    submitBtn.addEventListener("click", () => {
+      booking.submitAppointment();
+    });
+  }
+
+  // 4. Handle typography layouts
+  const jodexSpanAnimation = document.querySelector('.span-name');
+  if (jodexSpanAnimation) {
+    if (window.innerWidth <= 768) {
+      jodexSpanAnimation.classList.remove('typing-text');
+    } else {
+      jodexSpanAnimation.classList.add('typing-text');
+    }
+  }
 });
-
-document.getElementById("submit-btn").addEventListener("click", () => {
-  booking.submitAppointment();
-});
-
-

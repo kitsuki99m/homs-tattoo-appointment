@@ -24,6 +24,21 @@ export const util = {
     return true;
   },
 
+  sizeValidation(size, err) {
+    if (!size) {
+      err.innerText = "Please select a size.";
+      err.classList.remove('hidden');
+      err.style.opacity = '1';
+      setTimeout(() => {
+            err.classList.add('hidden');
+        }, 2000);
+       return false;
+    } else {
+          return true;
+    }
+
+  },
+
   phoneValidation(phone, err) {
     if (!/^\d+$/.test(phone)) {
       err.innerText = "Please enter a valid phone number.";
