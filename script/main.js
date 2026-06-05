@@ -5,6 +5,7 @@ import { util } from "./util/utility.js";
 import { initAnimation } from "./animations.js";
 import dayjs from "dayjs";
 import { gallery } from "./mainGallery.js";
+import { showToast } from "./toast.js";
 
 const months = [
   "January",
@@ -99,7 +100,13 @@ class Booking {
       const isAvailable = isInSchedule && availableTimes.length > 0;
 
       el.textContent = d;
-      el.classList.add("text-center", "text-sm", "py-1", "rounded-base", "calendar-cell");
+      el.classList.add(
+        "text-center",
+        "text-sm",
+        "py-1",
+        "rounded-base",
+        "calendar-cell",
+      );
 
       if (isPast || !isInSchedule) {
         el.classList.add(
@@ -133,23 +140,32 @@ class Booking {
       }
 
       if (isAvailable && !isPast) {
-          el.addEventListener("click", async () => {
-    selectedDate = thisDate;
-    selLabel.innerHTML = `Selected: <span class="text-text-primary font-medium">${dateStr}</span>`;
+        el.addEventListener("click", async () => {
+          selectedDate = thisDate;
+          selLabel.innerHTML = `Selected: <span class="text-text-primary font-medium">${dateStr}</span>`;
 
-    // remove selected state from previously selected cell
-    const prevSelected = document.querySelector(".calendar-cell.selected");
-    if (prevSelected) {
-      prevSelected.classList.remove("selected", "bg-text-primary", "text-white");
-      prevSelected.classList.add("text-text-primary", "hover:bg-bg-elevated");
-    }
+          // remove selected state from previously selected cell
+          const prevSelected = document.querySelector(
+            ".calendar-cell.selected",
+          );
+          if (prevSelected) {
+            prevSelected.classList.remove(
+              "selected",
+              "bg-text-primary",
+              "text-white",
+            );
+            prevSelected.classList.add(
+              "text-text-primary",
+              "hover:bg-bg-elevated",
+            );
+          }
 
-    // add selected state to clicked cell
-    el.classList.add("selected", "bg-text-primary", "text-white");
-    el.classList.remove("text-text-primary", "hover:bg-bg-elevated");
+          // add selected state to clicked cell
+          el.classList.add("selected", "bg-text-primary", "text-white");
+          el.classList.remove("text-text-primary", "hover:bg-bg-elevated");
 
-    await this.populateTimeSelect(dateStr, schedules, bookedSlots);
-  });
+          await this.populateTimeSelect(dateStr, schedules, bookedSlots);
+        });
       }
 
       grid.appendChild(el);
@@ -223,6 +239,15 @@ class Booking {
     }
 
     try {
+      const captchaToken = document.querySelector(
+        "[name=h-captcha-response]",
+      ).value;
+
+      if (!captchaToken) {
+        showToast("Please complete the captcha.", "error");
+        return;
+      }
+
       const res = await fetch(this.apiBooking, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -236,6 +261,7 @@ class Booking {
           date: dateStr,
           time,
           createdAt: dayjs().format("MMMM D, YYYY hh:mm A"),
+          captchaToken,
         }),
       });
 
@@ -401,14 +427,13 @@ class Booking {
   }
 
   initBooking() {
-   if (!document.getElementById("cal-days")) {
-    console.log("Not on the booking page. Skipping calendar initialization.");
-    return; 
-  }
-  this.renderCalendar();
-  this.validationEventListeners();
-  initAnimation();
-
+    if (!document.getElementById("cal-days")) {
+      console.log("Not on the booking page. Skipping calendar initialization.");
+      return;
+    }
+    this.renderCalendar();
+    this.validationEventListeners();
+    initAnimation();
   }
 }
 
@@ -419,7 +444,7 @@ const booking = new Booking();
 document.addEventListener("DOMContentLoaded", async () => {
   // 1. Initialize the gallery immediately
   try {
-    if (gallery && typeof gallery.initGallery === 'function') {
+    if (gallery && typeof gallery.initGallery === "function") {
       gallery.initGallery();
     }
   } catch (err) {
@@ -442,12 +467,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // 4. Handle typography layouts
-  const jodexSpanAnimation = document.querySelector('.span-name');
+  const jodexSpanAnimation = document.querySelector(".span-name");
   if (jodexSpanAnimation) {
     if (window.innerWidth <= 768) {
-      jodexSpanAnimation.classList.remove('typing-text');
+      jodexSpanAnimation.classList.remove("typing-text");
     } else {
-      jodexSpanAnimation.classList.add('typing-text');
+      jodexSpanAnimation.classList.add("typing-text");
     }
   }
 });
