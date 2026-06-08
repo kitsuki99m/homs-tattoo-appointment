@@ -3,7 +3,6 @@ import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  base: '/homs-tattoo/',
   publicDir: 'public',
   plugins: [
     tailwindcss(),
@@ -17,7 +16,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
+        index: resolve(__dirname, 'index.html'),
         gallery: resolve(__dirname, 'gallery.html'),
         privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
       }

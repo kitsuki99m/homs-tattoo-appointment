@@ -1,6 +1,6 @@
 // Copyright (c) 2026 Kyle Serina. All Rights Reserved.
 // Proprietary and confidential. Unauthorized use prohibited.
-
+import '../src/style.css'
 import { util } from "./util/utility.js";
 import { initAnimation } from "./animations.js";
 import dayjs from "dayjs";
