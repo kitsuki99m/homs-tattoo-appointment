@@ -18,7 +18,7 @@ export default defineConfig({
       input: {
         index: resolve(__dirname, 'index.html'),
         gallery: resolve(__dirname, 'gallery.html'),
-        privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
+        privacyPolicy: resolve(__dirname, 'privacy.html'),
       }
     }
   }
