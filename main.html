@@ -599,12 +599,8 @@
                     >
                       <option value="">Select a size</option>
                       <option value="minimal">Minimal — ₱1,000+</option>
-                      <option value="medium">
-                        Normal size — ₱2,000+
-                      </option>
-                      <option value="large">
-                        Medium size — ₱3,000+
-                      </option>
+                      <option value="medium">Normal size — ₱2,000+</option>
+                      <option value="large">Medium size — ₱3,000+</option>
                       <option value="full">Large size — ₱5,000+</option>
                     </select>
                   </div>
@@ -622,15 +618,35 @@
                     />
                   </div>
                   <div class="flex flex-col gap-2 col-span-2">
-                    <label class="text-sm" for="desc"
-                      >Design description / reference (optional)</label
+                    <label class="text-sm"
+                      >Service Type <span class="text-red-700">*</span></label
                     >
-                    <textarea
-                      id="desc"
-                      rows="4"
-                      placeholder="Describe your design idea or paste a reference link..."
-                      class="w-full outline-1 outline-text-primary/2 px-3 py-2 text-sm bg-transparent focus:outline-none focus:ring-1 resize-y placeholder:opacity-40"
-                    ></textarea>
+                    <div class="flex gap-6">
+                      <label
+                        class="flex items-center gap-2 text-sm cursor-pointer"
+                      >
+                        <input
+                          type="radio"
+                          name="service_type"
+                          value="Walk-in"
+                          required
+                          class="service_type accent-text-primary bg-bg-subtle"
+                        />
+                        Walk-in
+                      </label>
+                      <label
+                        class="flex items-center gap-2 text-sm cursor-pointer"
+                      >
+                        <input
+                          type="radio"
+                          name="service_type"
+                          value="Home Service"
+                          required
+                          class="service_type accent-text-primary bg-bg-subtle"
+                        />
+                        Home Service
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -776,7 +792,10 @@
                       >
                         <option value="">Select a date first</option>
                       </select>
-                      <div class="h-captcha mt-3" data-sitekey="10000000-ffff-ffff-ffff-000000000001"></div>
+                      <div
+                        class="h-captcha mt-3"
+                        data-sitekey="10000000-ffff-ffff-ffff-000000000001"
+                      ></div>
                       <button
                         id="submit-btn"
                         class="w-full mt-6 py-3 px-10 bg-text-primary text-bg-primary text-sm font-medium hover:opacity-80 transition cursor-pointer"
@@ -785,12 +804,10 @@
                       >
                         Book appointment
                       </button>
-                      <p
-                        id="error-msg"
-                        class="text-red-500 text-sm mt-3 transition-opacity duration-300 opacity-100"
-                        role="alert"
-                        aria-live="assertive"
-                      ></p>
+                      <p class="text-xs text-text-faint mt-2">
+  By booking, you agree to our 
+  <a href="./privacy-policy.html" class="underline hover:text-text-primary">Privacy Policy</a>.
+</p>
                     </div>
                   </div>
                 </div>
@@ -936,6 +953,7 @@
               © 2026 <span class="font-semibold">Homs Tattoo</span>. All Rights
               Reserved.
             </span>
+            
             <div
               class="flex justify-center items-center gap-5"
               aria-label="Social media links"
@@ -1023,7 +1041,10 @@
         </span>
       </footer>
     </div>
-    <div id="toast-container" class="fixed top-26 right-6 flex flex-col gap-3 z-50"></div>
+    <div
+      id="toast-container"
+      class="fixed top-26 right-6 flex flex-col gap-3 z-50"
+    ></div>
     <script type="module" src="./script/main.js"></script>
   </body>
 </html>

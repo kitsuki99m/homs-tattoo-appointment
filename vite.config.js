@@ -9,7 +9,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    open: '/homs-tattoo/main.html',
+    open: 'main.html',
     watch: {
       ignored: ['**/homs-server-deployment/src/**'],
     },
@@ -18,6 +18,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'main.html'),
+        gallery: resolve(__dirname, 'gallery.html'),
+        privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
       }
     }
   }

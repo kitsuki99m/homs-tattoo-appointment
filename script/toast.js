@@ -1,10 +1,12 @@
 export function showToast(message, type = 'success') {
+     if (document.querySelector(".toast")) return; // prevent duplicates
     const container = document.getElementById('toast-container');
+    
 
     const colors = {
-        success: 'border-success bg-bg-elevated text-text-primary',
-        error: 'border-danger bg-bg-elevated text-text-primary',
-        info: 'border-gold bg-bg-elevated text-text-primary',
+        success: 'border-success bg-[#f5f5f5] text-text-primary',
+        error: 'border-danger bg-[#f5f5f5] text-text-primary',
+        info: 'border-gold bg-[#f5f5f5] text-text-primary',
     };
 
     const icons = {
@@ -15,7 +17,7 @@ export function showToast(message, type = 'success') {
 
     const toast = document.createElement('div');
     toast.className = `
-        flex items-center gap-3 px-4 py-3 rounded-xl 
+        flex items-center gap-3 px-4 py-3
         border-l-4 ${colors[type]}
         shadow-lg min-w-[260px] max-w-[360px] 
         translate-x-full opacity-0 transition-all duration-300
@@ -43,7 +45,7 @@ export function showToast(message, type = 'success') {
     });
 
     // auto remove after 3 seconds
-    setTimeout(() => removeToast(toast), 3000);
+    setTimeout(() => removeToast(toast), 2000);
 }
 
 function removeToast(toast) {

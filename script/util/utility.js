@@ -1,37 +1,22 @@
+import { showToast } from "../toast.js";
+
 export const util = {
-  nameValidation(fname, lname, err) {
+  nameValidation(fname, lname) {
     if (!/^[a-zA-Z\s]+$/.test(fname)) {
-      err.innerText = "Please enter a valid first name.";
-      err.classList.remove("hidden");
-      err.style.opacity = "1";
-      setTimeout(() => {
-        err.style.opacity = "0";
-        setTimeout(() => err.classList.add("hidden"), 500); // hide after fade
-      }, 2000);
+      showToast("Please enter a valid first name.", "error")
       return false;
     }
 
     if (!/^[a-zA-Z\s]+$/.test(lname)) {
-      err.innerText = "Please enter a valid last name.";
-      err.classList.remove("hidden");
-      err.style.opacity = "1";
-      setTimeout(() => {
-        err.style.opacity = "0";
-        setTimeout(() => err.classList.add("hidden"), 500); // hide after fade
-      }, 2000);
+      showToast("Please enter a valid last name.", "error")
       return false;
     }
     return true;
   },
 
-  sizeValidation(size, err) {
+  sizeValidation(size) {
     if (!size) {
-      err.innerText = "Please select a size.";
-      err.classList.remove('hidden');
-      err.style.opacity = '1';
-      setTimeout(() => {
-            err.classList.add('hidden');
-        }, 2000);
+      showToast('Please select the size', "error");
        return false;
     } else {
           return true;
@@ -39,37 +24,47 @@ export const util = {
 
   },
 
-  phoneValidation(phone, err) {
+    dateValidation(selecedDate) {
+    if (!selecedDate) {
+      showToast('Please select date of the appointment', "error");
+       return false;
+    } else {
+          return true;
+    }
+
+  },
+
+  timeValidation(time) {
+    if (!time) {
+      showToast('Please select the time', "error");
+       return false;
+    } else {
+          return true;
+    }
+
+  },
+
+ typeValidation(type) {
+  if (!type) {
+    showToast("Please select a service type.", "error");
+    return false;
+  }
+  return true;
+},
+
+  phoneValidation(phone) {
     if (!/^\d+$/.test(phone)) {
-      err.innerText = "Please enter a valid phone number.";
-      err.classList.remove("hidden");
-      err.style.opacity = "1";
-      setTimeout(() => {
-        err.style.opacity = "0";
-        setTimeout(() => err.classList.add("hidden"), 500); // hide after fade
-      }, 2000);
+      showToast("Please enter a valid phone number.", "error");
       return false;
     }
 
     if (!phone.startsWith("09")) {
-      err.innerText = "Please enter a valid phone number starts with 09.";
-      err.classList.remove("hidden");
-      err.style.opacity = "1";
-      setTimeout(() => {
-        err.style.opacity = "0";
-        setTimeout(() => err.classList.add("hidden"), 500); // hide after fade
-      }, 2000);
+      showToast("Please enter a valid phone number starts with 09.", "error");
       return false;
     }
 
     if (phone.length !== 11) {
-      err.innerText = "Please enter your 11 digits phone number.";
-      err.classList.remove("hidden");
-      err.style.opacity = "1";
-      setTimeout(() => {
-        err.style.opacity = "0";
-        setTimeout(() => err.classList.add("hidden"), 500); // hide after fade
-      }, 2000);
+      showToast("Please enter your 11 digits phone number.", "error");
       return false;
     }
     return true;

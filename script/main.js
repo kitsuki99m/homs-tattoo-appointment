@@ -211,32 +211,47 @@ class Booking {
     const capChar = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
     // DOM refs
-    const err = document.getElementById("error-msg");
     const fname = document.querySelector("#fname").value.trim();
     const lname = document.querySelector("#lname").value.trim();
     const phone = document.querySelector("#phone").value.trim();
     const email = document.querySelector("#email").value.trim();
     const size = document.querySelector("#size").value.trim();
     const placement = document.querySelector("#placement").value.trim();
-    const desc = document.querySelector("#desc").value.trim();
+    const serviceType = document.querySelector(
+      "input[name='service_type']:checked",
+    )?.value;
     const time = document.querySelector("#time").value;
 
     // Formatted values
     const fullName = `${capChar(fname)} ${capChar(lname)}`;
     const fSize = capChar(size);
     const fPlacement = capChar(placement);
-    const fDesc = capChar(desc);
-    const dateStr = `${months[selectedDate.getMonth()]} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`;
 
     // Validation
-    if (!util.nameValidation(fname, lname, err)) return;
-    if (!util.phoneValidation(phone, err)) return;
-    if (!util.sizeValidation(size, err)) return;
-    if (!selectedDate) {
-      err.textContent = "Please select a date.";
-      err.classList.remove("hidden");
+    if (
+      !fname &&
+      !lname &&
+      !phone &&
+      !email &&
+      !size &&
+      !serviceType &&
+      !selectedDate &&
+      !time
+      
+    ) {
+      showToast("Please complete the form before submitting.", "error");
       return;
     }
+
+    if (!util.nameValidation(fname, lname)) return;
+    if (!util.phoneValidation(phone)) return;
+    if (!util.sizeValidation(size)) return;
+    if (!util.typeValidation(serviceType)) return;
+    if (!util.dateValidation(selectedDate)) return;
+    if (!util.timeValidation(time)) return;
+
+
+    const dateStr = `${months[selectedDate.getMonth()]} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`;
 
     try {
       const captchaToken = document.querySelector(
@@ -257,7 +272,7 @@ class Booking {
           email,
           size: fSize,
           placement: fPlacement || "Not specified",
-          description: fDesc || "No description",
+          servicetype: serviceType,
           date: dateStr,
           time,
           createdAt: dayjs().format("MMMM D, YYYY hh:mm A"),
@@ -279,7 +294,7 @@ class Booking {
         document.getElementById("success-text").textContent =
           `Appointment requested, ${fname}!`;
         document.getElementById("success-sub").textContent =
-          `${dateStr} at ${time} · ${sizeText}`;
+          `${dateStr} at ${time} · ${sizeText} | Check email for confirmation`;
 
         // Swap form → success
         document.getElementById("form-content").style.display = "none";
@@ -380,7 +395,6 @@ class Booking {
       booking.renderCalendar();
 
       // DOM refs
-      const err = document.getElementById("error-msg");
       const datePicker = document.getElementById("datepicker");
       const bookedMsg = document.querySelector("#booking-title h2");
       const bookedMsgQuote = document.querySelector("#booking-title p");
@@ -389,18 +403,11 @@ class Booking {
       );
 
       // Clear form fields
-      [
-        "fname",
-        "lname",
-        "phone",
-        "email",
-        "size",
-        "time",
-        "placement",
-        "desc",
-      ].forEach((id) => {
-        document.getElementById(id).value = "";
-      });
+      ["fname", "lname", "phone", "email", "size", "time", "placement"].forEach(
+        (id) => {
+          document.getElementById(id).value = "";
+        },
+      );
 
       // Reset labels
       document.getElementById("selected-date-label").textContent =
@@ -415,7 +422,6 @@ class Booking {
         .classList.replace("flex", "hidden");
 
       // Layout adjustments
-      err.classList.add("hidden");
       informationContainer.classList.replace("md:col-span-12", "md:col-span-8");
       datePicker.style.display = "block";
 
