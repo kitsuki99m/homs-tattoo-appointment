@@ -9,7 +9,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    open: 'main.html',
+    open: 'index.html',
     watch: {
       ignored: ['**/homs-server-deployment/src/**'],
     },
@@ -17,7 +17,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'main.html'),
+        main: resolve(__dirname, 'index.html'),
         gallery: resolve(__dirname, 'gallery.html'),
         privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
       }
