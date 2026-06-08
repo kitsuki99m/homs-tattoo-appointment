@@ -6,6 +6,7 @@ import { initAnimation } from "./animations.js";
 import dayjs from "dayjs";
 import { gallery } from "./mainGallery.js";
 import { showToast } from "./toast.js";
+import '../src/style.css'
 
 const months = [
   "January",
