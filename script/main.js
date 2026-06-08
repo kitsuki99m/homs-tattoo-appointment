@@ -1,6 +1,6 @@
 // Copyright (c) 2026 Kyle Serina. All Rights Reserved.
 // Proprietary and confidential. Unauthorized use prohibited.
-import '../src/style.css'
+import "../src/style.css";
 import { util } from "./util/utility.js";
 import { initAnimation } from "./animations.js";
 import dayjs from "dayjs";
@@ -32,9 +32,13 @@ const selLabel = document.getElementById("selected-date-label");
 
 class Booking {
   constructor() {
-    this.apiBooking = "http://localhost:3000/api/booking";
-    this.apiSchedules = "http://localhost:3000/api/schedule";
-    this.apiBooked = "http://localhost:3000/api/booking/slots";
+    const BASE_URL =
+      window.location.hostname === "localhost"
+        ? "http://localhost:3000"
+        : "https://api.homstattoo.online";
+    this.apiBooking = `${BASE_URL}/api/booking`;
+    this.apiSchedules = `${BASE_URL}/api/schedule`;
+    this.apiBooked = `${BASE_URL}/api/booking/slots`;
     this._schedules = null; // ← cache
     this._bookedSlots = null; // ← cache
   }
@@ -237,7 +241,6 @@ class Booking {
       !serviceType &&
       !selectedDate &&
       !time
-      
     ) {
       showToast("Please complete the form before submitting.", "error");
       return;
@@ -249,7 +252,6 @@ class Booking {
     if (!util.typeValidation(serviceType)) return;
     if (!util.dateValidation(selectedDate)) return;
     if (!util.timeValidation(time)) return;
-
 
     const dateStr = `${months[selectedDate.getMonth()]} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`;
 

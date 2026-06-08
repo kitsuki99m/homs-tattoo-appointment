@@ -1,6 +1,10 @@
 class Gallery {
   constructor() {
-    this.apiGallery = "http://localhost:3000/api/gallery";
+    const BASE_URL =
+      window.location.hostname === "localhost"
+        ? "http://localhost:3000"
+        : "https://api.homstattoo.online";
+    this.apiGallery = `${BASE_URL}/api/gallery`;
     this.cache_gallery = null;
   }
 
@@ -105,9 +109,9 @@ class Gallery {
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        const modal = document.querySelector('.modal-img');
+        const modal = document.querySelector(".modal-img");
         modal.remove();
-        document.body.classList.remove('overflow-hidden');
+        document.body.classList.remove("overflow-hidden");
       }
     });
   }
