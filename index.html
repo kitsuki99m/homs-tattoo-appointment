@@ -60,7 +60,9 @@
         id="top-bar"
         class="sticky top-0 z-50 w-full h-20 flex items-center justify-center bg-white/20 backdrop-blur-md border-b border-text-primary/10 shadow-md"
       >
-        <header class="w-[85%] h-full flex items-center justify-between">
+        <header
+          class="w-full h-full md:!w-[85%] flex items-center justify-between relative px-6"
+        >
           <div
             id="logo"
             class="text-text-primary font-aktura text-3xl pointer-events-none"
@@ -95,12 +97,67 @@
               </li>
             </ul>
           </nav>
+
+          <ion-icon
+            id="nav-toggle"
+            class="text-3xl cursor-pointer md:hidden text-darkgray block"
+            name="menu"
+            role="button"
+            aria-label="Toggle mobile navigation menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+            tabindex="0"
+          ></ion-icon>
+
           <a
             href="#booking"
             class="hidden md:block uppercase font-thin bg-text-primary text-bg-elevated px-4 py-2 cursor-pointer hover:bg-text-muted active:bg-text-faint"
           >
             Book A Session
           </a>
+
+          <div
+            id="nav-menu"
+            class="w-screen top-14 absolute left-0 bg-white backdrop-blur-md border-b border-text-primary/10 shadow-md md:hidden opacity-0 pointer-events-none transition-all duration-300 ease-in-out -translate-y-2"
+            role="navigation"
+            aria-label="Mobile navigation"
+            aria-hidden="true"
+          >
+            <ul
+              class="flex flex-col font-source font-semibold text-right p-10 gap-2"
+              role="list"
+            >
+              <li
+                class="px-3 py-2 rounded-sm text-text-primary hover:opacity-80 transition-colors"
+              >
+                <a href="#">Home</a>
+              </li>
+              <li
+                class="px-3 py-2 rounded-sm text-darkgray hover:opacity-80 transition-colors"
+              >
+                <a href="#about">About</a>
+              </li>
+              <li
+                class="px-3 py-2 rounded-sm text-text-primary hover:opacity-80 transition-colors"
+              >
+                <a href="./gallery.html">Gallery</a>
+              </li>
+              <li
+                class="px-3 py-2 rounded-sm text-text-primary hover:opacity-80 transition-colors"
+              >
+                <a href="#pricing">Pricing</a>
+              </li>
+              <li
+                class="px-3 py-2 rounded-sm text-text-primary hover:opacity-80 transition-colors"
+              >
+                <a
+                  class="mob-book-btn text-text-primary transition hover:opacity-80 active:opacity-60 whitespace-nowrap"
+                  href="#booking"
+                  >Book</a
+                >
+              </li>
+            </ul>
+          </div>
         </header>
       </div>
 
@@ -805,9 +862,13 @@
                         Book appointment
                       </button>
                       <p class="text-xs text-text-faint mt-2">
-  By booking, you agree to our 
-  <a href="./privacy-policy.html" class="underline hover:text-text-primary">Privacy Policy</a>.
-</p>
+                        By booking, you agree to our
+                        <a
+                          href="./privacy-policy.html"
+                          class="underline hover:text-text-primary"
+                          >Privacy Policy</a
+                        >.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -953,7 +1014,7 @@
               © 2026 <span class="font-semibold">Homs Tattoo</span>. All Rights
               Reserved.
             </span>
-            
+
             <div
               class="flex justify-center items-center gap-5"
               aria-label="Social media links"

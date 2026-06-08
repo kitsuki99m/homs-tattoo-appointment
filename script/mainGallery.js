@@ -35,7 +35,7 @@ class Gallery {
 
     // 3. CORRECT LOGIC FLOW: Check if the images array has anything in it!
     if (!images || images.length === 0) {
-      imageContainer.innerHTML = `<p>There are no images found.</p>`;
+      imageContainer.innerHTML = `<div class="flex justify-center items-center col-span-2 md:!col-span-4"><p class="text-center">There are no images found.</p></div>`;
     } else {
       // This will finally run now!
       imageContainer.innerHTML = images

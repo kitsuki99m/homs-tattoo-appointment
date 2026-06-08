@@ -483,4 +483,89 @@ document.addEventListener("DOMContentLoaded", async () => {
       jodexSpanAnimation.classList.add("typing-text");
     }
   }
+
+  navMenu();
+
 });
+
+// Navigation Menu 
+
+export function openMenu() {
+  const menu = document.getElementById("nav-toggle");
+  const navMenu = document.getElementById("nav-menu");
+  if (!menu || !navMenu) return;
+
+  if (window.innerWidth >= 768) return;
+
+  const isOpening = navMenu.classList.contains("pointer-events-none");
+  
+  // Set icon states and ARIA helpers
+  menu.setAttribute("name", isOpening ? "close" : "menu");
+  menu.setAttribute("aria-expanded", isOpening ? "true" : "false");
+  navMenu.setAttribute("aria-hidden", isOpening ? "false" : "true");
+
+  // Animate view states using your setup class properties
+  navMenu.classList.toggle("opacity-0", !isOpening);
+  navMenu.classList.toggle("opacity-100", isOpening);
+  navMenu.classList.toggle("pointer-events-none", !isOpening);
+  navMenu.classList.toggle("-translate-y-2", !isOpening);
+  navMenu.classList.toggle("translate-y-0", isOpening);
+
+  // Close when clicking an anchor link item
+  if (isOpening && !navMenu.dataset.listenerAttached) {
+    navMenu.addEventListener("click", (event) => {
+      if (event.target.closest("li") || event.target.tagName === "A") {
+        closeMenuExplicitly(navMenu, menu);
+      }
+    });
+    navMenu.dataset.listenerAttached = "true";
+  }
+}
+
+function closeMenuExplicitly(navMenu, toggle) {
+  navMenu.classList.add("opacity-0", "pointer-events-none", "-translate-y-2");
+  navMenu.classList.remove("opacity-100", "translate-y-0");
+  toggle.setAttribute("name", "menu");
+  toggle.setAttribute("aria-expanded", "false");
+  navMenu.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("overflow-hidden");
+}
+
+// Global UI handling setup block
+function navMenu() {
+  const burger = document.querySelector("#nav-toggle");
+  if (!burger) return;
+
+  burger.addEventListener("click", (e) => {
+    e.stopPropagation(); // Prevents immediate close from global listener
+    openMenu();
+  });
+
+  // Global click monitoring to close dropdown when clicking outside
+  document.addEventListener("click", (event) => {
+    const navMenuEl = document.getElementById("nav-menu");
+    const toggleEl = document.getElementById("nav-toggle");
+    if (!navMenuEl || !toggleEl) return;
+
+    const isOpen = navMenuEl.classList.contains("opacity-100");
+    const clickedOutside = !navMenuEl.contains(event.target) && !toggleEl.contains(event.target);
+
+    if (isOpen && clickedOutside) {
+      closeMenuExplicitly(navMenuEl, toggleEl);
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    const menu = document.getElementById("nav-toggle");
+    const navMenuEl = document.getElementById("nav-menu");
+    if (!menu || !navMenuEl) return;
+
+    if (window.innerWidth >= 768) {
+      closeMenuExplicitly(navMenuEl, menu);
+    }
+  });
+}
+
+
+
+
