@@ -1,12 +1,12 @@
 // Copyright (c) 2026 Kyle Serina. All Rights Reserved.
 // Proprietary and confidential. Unauthorized use prohibited.
+
 import "../src/style.css";
 import { util } from "./util/utility.js";
 import { initAnimation } from "./animations.js";
 import dayjs from "dayjs";
 import { gallery } from "./mainGallery.js";
 import { showToast } from "./toast.js";
-import '../src/style.css'
 
 const months = [
   "January",
@@ -566,7 +566,3 @@ function navMenu() {
     }
   });
 }
-
-
-
-
