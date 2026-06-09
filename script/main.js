@@ -499,19 +499,20 @@ export function openMenu() {
 
   const isOpening = navMenu.classList.contains("pointer-events-none");
 
-  // Set icon states and ARIA helpers
-  menu.setAttribute("name", isOpening ? "close" : "menu");
+  // swap SVG icon between hamburger and close
+  menu.innerHTML = isOpening
+  ? `<path fill="currentColor" d="M5.293 5.293a1 1 0 011.414 0L12 10.586l5.293-5.293a1 1 0 111.414 1.414L13.414 12l5.293 5.293a1 1 0 01-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 01-1.414-1.414L10.586 12 5.293 6.707a1 1 0 010-1.414z"/>` // close icon
+  : `<rect x="3" y="5" width="18" height="2" rx="1"/><rect x="3" y="11" width="18" height="2" rx="1"/><rect x="3" y="17" width="18" height="2" rx="1"/>`; // hamburger
+
   menu.setAttribute("aria-expanded", isOpening ? "true" : "false");
   navMenu.setAttribute("aria-hidden", isOpening ? "false" : "true");
 
-  // Animate view states using your setup class properties
   navMenu.classList.toggle("opacity-0", !isOpening);
   navMenu.classList.toggle("opacity-100", isOpening);
   navMenu.classList.toggle("pointer-events-none", !isOpening);
   navMenu.classList.toggle("-translate-y-2", !isOpening);
   navMenu.classList.toggle("translate-y-0", isOpening);
 
-  // Close when clicking an anchor link item
   if (isOpening && !navMenu.dataset.listenerAttached) {
     navMenu.addEventListener("click", (event) => {
       if (event.target.closest("li") || event.target.tagName === "A") {
@@ -525,10 +526,11 @@ export function openMenu() {
 function closeMenuExplicitly(navMenu, toggle) {
   navMenu.classList.add("opacity-0", "pointer-events-none", "-translate-y-2");
   navMenu.classList.remove("opacity-100", "translate-y-0");
-  toggle.setAttribute("name", "menu");
+  toggle.innerHTML = `<rect x="3" y="5" width="18" height="2" rx="1"/><rect x="3" y="11" width="18" height="2" rx="1"/><rect x="3" y="17" width="18" height="2" rx="1"/>`;
   toggle.setAttribute("aria-expanded", "false");
   navMenu.setAttribute("aria-hidden", "true");
   document.body.classList.remove("overflow-hidden");
+  toggle.blur(); // removes focus border
 }
 
 // Global UI handling setup block

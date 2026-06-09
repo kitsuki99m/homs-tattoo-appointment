@@ -247,6 +247,10 @@
   transition: width 0.3s ease;
 }
 
+#nav-toggle:focus {
+  outline: none;
+}
+
 #nav-menu li a:hover::after {
   width: 100%;
 }
