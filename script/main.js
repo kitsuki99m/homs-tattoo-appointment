@@ -358,81 +358,50 @@ class Booking {
     });
 
     // fname
-    document.getElementById("fname").addEventListener("input", (e) => {
-      validateInput(
-        e.target,
-        /^[a-zA-Z\s]+$/.test(e.target.value.trim()) &&
-          e.target.value.trim() !== "",
-      );
-    });
-
-    // lname
-    document.getElementById("lname").addEventListener("input", (e) => {
-      validateInput(
-        e.target,
-        /^[a-zA-Z\s]+$/.test(e.target.value.trim()) &&
-          e.target.value.trim() !== "",
-      );
-    });
-
-    // phone
-    document.getElementById("phone").addEventListener("input", (e) => {
-      const val = e.target.value.trim();
-      validateInput(
-        e.target,
-        /^\d+$/.test(val) && val.startsWith("09") && val.length === 11,
-      );
-    });
-
-    // email
-    document.getElementById("email").addEventListener("input", (e) => {
-      validateInput(
-        e.target,
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value.trim()),
-      );
-    });
-
     document.getElementById("again-btn").addEventListener("click", () => {
-      // Reset state
-      selectedDate = null;
-      booking.renderCalendar();
+  // Reset state
+  selectedDate = null;
+  booking.renderCalendar();
 
-      // DOM refs
-      const datePicker = document.getElementById("datepicker");
-      const bookedMsg = document.querySelector("#booking-title h2");
-      const bookedMsgQuote = document.querySelector("#booking-title p");
-      const informationContainer = document.querySelector(
-        ".information-container",
-      );
+  // DOM refs
+  const datePicker = document.getElementById("datepicker");
+  const bookedMsg = document.querySelector("#booking-title h2");
+  const bookedMsgQuote = document.querySelector("#booking-title p");
+  const informationContainer = document.querySelector(".information-container");
 
-      // Clear form fields
-      ["fname", "lname", "phone", "email", "size", "time", "placement"].forEach(
-        (id) => {
-          document.getElementById(id).value = "";
-        },
-      );
+  // Clear form fields
+  ["fname", "lname", "phone", "email", "size", "time", "placement"].forEach((id) => {
+    document.getElementById(id).value = "";
+  });
 
-      // Reset labels
-      document.getElementById("selected-date-label").textContent =
-        "No date selected";
-      document.getElementById("success-text").textContent = "";
-      document.getElementById("success-sub").textContent = "";
+  // Reset service type radio buttons
+  document.querySelectorAll("input[name='service_type']").forEach((radio) => {
+    radio.checked = false;
+  });
 
-      // Swap success → form
-      document.getElementById("form-content").style.display = "flex";
-      document
-        .getElementById("success-msg")
-        .classList.replace("flex", "hidden");
+  // Reset captcha
+  if (window.hcaptcha) {
+    window.hcaptcha.reset();
+  }
 
-      // Layout adjustments
-      informationContainer.classList.replace("md:col-span-12", "md:col-span-8");
-      datePicker.style.display = "block";
+  // Reset labels
+  document.getElementById("selected-date-label").textContent = "No date selected";
+  document.getElementById("success-text").textContent = "";
+  document.getElementById("success-sub").textContent = "";
 
-      // Reset heading
-      bookedMsg.textContent = "Book nasab ta!";
-      bookedMsg.classList.remove("text-center");
-      bookedMsgQuote.style.display = "block";
-    });
+  // Swap success → form
+  document.getElementById("form-content").style.display = "flex";
+  document.getElementById("success-msg").classList.replace("flex", "hidden");
+
+  // Layout adjustments
+  informationContainer.classList.replace("md:col-span-12", "md:col-span-8");
+  datePicker.style.display = "block";
+
+  // Reset heading
+  bookedMsg.textContent = "Book nasab ta!";
+  bookedMsg.classList.remove("text-center");
+  bookedMsgQuote.style.display = "block";
+});
   }
 
   initBooking() {
