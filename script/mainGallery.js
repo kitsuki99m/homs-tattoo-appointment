@@ -46,7 +46,11 @@ class Gallery {
             class="w-full h-full object-cover cursor-pointer transition-transform duration-500 ease-out hover:scale-110"
             src="${image.filepath}"
             data-image-id="${image._id}"
-            alt="Zoomable image" 
+            alt="Tattoo design by Jodex Abellona"
+            width="400"
+            height="500"
+            loading="lazy"
+            decoding="async"
           />
         </div>`,
         )
