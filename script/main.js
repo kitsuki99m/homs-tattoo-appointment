@@ -486,10 +486,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   navMenu();
-
 });
 
-// Navigation Menu 
+// Navigation Menu
 
 export function openMenu() {
   const menu = document.getElementById("nav-toggle");
@@ -499,7 +498,7 @@ export function openMenu() {
   if (window.innerWidth >= 768) return;
 
   const isOpening = navMenu.classList.contains("pointer-events-none");
-  
+
   // Set icon states and ARIA helpers
   menu.setAttribute("name", isOpening ? "close" : "menu");
   menu.setAttribute("aria-expanded", isOpening ? "true" : "false");
@@ -549,7 +548,8 @@ function navMenu() {
     if (!navMenuEl || !toggleEl) return;
 
     const isOpen = navMenuEl.classList.contains("opacity-100");
-    const clickedOutside = !navMenuEl.contains(event.target) && !toggleEl.contains(event.target);
+    const clickedOutside =
+      !navMenuEl.contains(event.target) && !toggleEl.contains(event.target);
 
     if (isOpen && clickedOutside) {
       closeMenuExplicitly(navMenuEl, toggleEl);
@@ -565,4 +565,14 @@ function navMenu() {
       closeMenuExplicitly(navMenuEl, menu);
     }
   });
+
+  document.addEventListener("scroll", () => {
+    const menu = document.getElementById("nav-toggle");
+    const navMenuEl = document.getElementById("nav-menu");
+    if (!menu || !navMenuEl) return;
+    if (window.innerWidth <= 768) {
+      closeMenuExplicitly(navMenuEl, menu);
+    }
+  });
+
 }
