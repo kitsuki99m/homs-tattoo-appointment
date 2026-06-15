@@ -55,22 +55,22 @@ function infoCards() {
   );
 
   pricingCards.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 0.25}s`;
-    observer.observe(card);
-  });
-
-  knowMoreCard.forEach((card, index) => {
     card.style.transitionDelay = `${index * 0.15}s`;
     observer.observe(card);
   });
 
+  knowMoreCard.forEach((card, index) => {
+    card.style.transitionDelay = `${index * 0.10}s`;
+    observer.observe(card);
+  });
+
   heroTextLeft.forEach((el, index) => {
-    el.style.transitionDelay = `${index * 0.15}s`;
+    el.style.transitionDelay = `${index * 0.10}s`;
     observer.observe(el);
   });
 
   heroTextRight.forEach((el, index) => {
-    el.style.transitionDelay = `${index * 0.15}s`;
+    el.style.transitionDelay = `${index * 0.10}s`;
     observer.observe(el);
   });
 
