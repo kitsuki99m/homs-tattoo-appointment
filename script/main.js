@@ -464,7 +464,7 @@ export function openMenu() {
   const navMenu = document.getElementById("nav-menu");
   if (!menu || !navMenu) return;
 
-  if (window.innerWidth >= 768) return;
+  if (window.innerWidth >= 1024) return;
 
   const isOpening = navMenu.classList.contains("pointer-events-none");
 
@@ -532,7 +532,7 @@ function navMenu() {
     const navMenuEl = document.getElementById("nav-menu");
     if (!menu || !navMenuEl) return;
 
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       closeMenuExplicitly(navMenuEl, menu);
     }
   });
@@ -541,7 +541,7 @@ function navMenu() {
     const menu = document.getElementById("nav-toggle");
     const navMenuEl = document.getElementById("nav-menu");
     if (!menu || !navMenuEl) return;
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
       closeMenuExplicitly(navMenuEl, menu);
     }
   });
